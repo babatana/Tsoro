@@ -32,6 +32,7 @@ public class Tsoro {
 
   protected ArrayList<Integer> makeMove (int handIndex) {
     hand = board.get(handIndex);
+    board.set(handIndex, 0);
     if (hand > 0) { 
       currHole = handIndex+1;
       if (hand == 1 && board.get(currHole+1) == 0) {
@@ -45,6 +46,7 @@ public class Tsoro {
 	}
       board.set(currHole, board.get(currHole)+1);
       hand -= 1;
+      currHole++;
       }        
     } else if (hand == 0 && currHole == 0) {
 	System.out.println("Move complete!");
