@@ -25,7 +25,7 @@ public class Tsoro {
         System.out.print(" " + board.get(j) + " ");
     }
     System.out.println("]");
-
+    
     // bottom row
     System.out.print("[");
     for (int i = 0; i < row; i++) {
@@ -33,24 +33,17 @@ public class Tsoro {
     }
     System.out.println("]");
   }
-
-  protected int chooseNextAnticlockwiseHand(int previousHand) {
-    int prevHand = previousHand;
-    int chosenHand;
-    for (int i = prevHand+1; i < board.size(); i++) {
-      if (i >= board.size()) {
-        i -= board.size();
-      }
-      if (board.get(i) > 0) {
-        chosenHand = i;
-        return chosenHand;
-      }
+  
+  protected void checkIfOutOfIndex() {
+    if (currHole >= board.size() || nextHole >= board.size()) {
+      currHole -= board.size();
+      nextHole -= board.size();
     }
-    chosenHand = 0;
-    return chosenHand;
   } 
 
   protected ArrayList<Integer> makeMove (int handIndex) {
+    System.out.println("Move");
+
     if (board.get(handIndex) > 0) {
       hand = board.get(handIndex);      
       board.set(handIndex, 0);
@@ -59,10 +52,8 @@ public class Tsoro {
       System.out.println("You selected an empty hand, hole " + currHole);
     }
     
-    
-    // empty current hand...
     while (hand > 0) {
-      // REFACTOR TO CASE STATEMENT
+      // avoid out-of-range error 
       if (currHole >= board.size()) {
         currHole -= board.size();
       }
@@ -74,7 +65,6 @@ public class Tsoro {
             currHole -= board.size();
             nextHole -= board.size();
           }
-          System.out.println("One stone left. Next hole, " + nextHole + ", is empty");
           currHole++;
           nextHole++;
           if (currHole >= board.size() || nextHole >= board.size()) {
@@ -84,7 +74,7 @@ public class Tsoro {
         }
       }
 
-      if (hand == 0 && currHole == destHole) {
+      if (hand == 1 && currHole == board.size()Z) {
         System.out.println("Move complete!");
         return board;
       }
@@ -92,6 +82,7 @@ public class Tsoro {
       hand -= 1;
       currHole++; 	
     }
+    showBoard();
     return board;
   }
 }
