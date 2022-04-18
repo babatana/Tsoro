@@ -1,17 +1,24 @@
 ### Python Tsoro Game Tree
 ### Includes DFS, BFS and Djikstra Algorithms 
 ### Written by Tanaka B. Khondowe
+import random as rand
 
-
-A = [
-    [1, 0, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0]
+board = [
+    [0, 0, 0, 0, 2, 2, 2, 2],
+    [0, 0, 0, 0, 2, 2, 2, 2]
 ]
 
-boardA = len(A[0])
-boardB = len(A[1])
+boardA = len(board[0])
+boardB = len(board[1])
+hand1 = board[0][rand.randrange(1,7)]
+hand2 = board[1][rand.randrange(1,7)] 
+
+print(hand1)
+print(hand2)
+
+print("+++++++++++++++++++++++")
 
 i = 0
 while i < boardA:
-    print(A[0][i])
+    print(board[0][i])
     i+=1
