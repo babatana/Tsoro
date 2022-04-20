@@ -1,6 +1,6 @@
 ### Python Tsoro Game Tree
 ### Includes DFS, BFS and Djikstra Algorithms 
-### Written by Tanaka B. Khondowe
+### Written by Tanaka Khondowe
 import random as rand
 
 class Tsoro:
@@ -48,6 +48,7 @@ class Tsoro:
             self.hand-=1
 
     def play_round(self):
+        #while (self.board[0] < self.board_size):
         self.hand = self.choose_hand()
         print("Current hole", self.curr_hole)
         print("Hand = ", self.hand)
@@ -69,5 +70,7 @@ class Tsoro:
         return self.board
 
 tsoro = Tsoro(8, 2)
-tsoro.init_board()
-print(tsoro.play_round())
+board = tsoro.init_board()
+print(len(board))
+while (board[0] < len(board)):
+    print(tsoro.play_round())
