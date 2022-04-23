@@ -42,12 +42,12 @@ public class Tsoro {
   } 
 
   protected ArrayList<Integer> makeMove (int handIndex) {
-    System.out.println("Move");
-
     if (board.get(handIndex) > 0) {
       hand = board.get(handIndex);      
       board.set(handIndex, 0);
       currHole = handIndex+1;
+      System.out.println("Chose " + handIndex);
+      System.out.println("Hand = " + hand);
     } else {
       System.out.println("You selected an empty hand, hole " + currHole);
     }
@@ -57,32 +57,51 @@ public class Tsoro {
       if (currHole >= board.size()) {
         currHole -= board.size();
       }
- 
+      
       if (hand == 1 && board.get(currHole) == 0) {
         int emptyHoleTracker = 0;
-        while (board.get(nextHole) == 0) {
-          if (currHole >= board.size() || nextHole >= board.size()) {
-            currHole -= board.size();
-            nextHole -= board.size();
-          }
+        if (currHole == destHole) {
+          board.set(destHole, board.get(destHole)+1);
+          hand -= 1;
           currHole++;
+          showBoard();
+          System.out.println("Last in hole");
+          return board;
+        }
+        // skipping empty holes
+        while (board.get(nextHole) == 0) {
+          checkIfOutOfIndex();
+          //if (currHole >= board.size() || nextHole >= board.size()) {
+          //  currHole -= board.size(); 
+          //  nextHole -= board.size();
+          //}
+          currHole++;
+          System.out.println(currHole);
           nextHole++;
-          if (currHole >= board.size() || nextHole >= board.size()) {
-            currHole -= board.size();
-            nextHole -= board.size();
-          }
+          System.out.println(nextHole);
+	  checkIfOutOfIndex();
+          //if (currHole >= board.size() || nextHole >= board.size()) {
+          //  currHole -= board.size();
+          //  nextHole -= board.size();
+          //}
         }
       }
 
-      if (hand == 1 && currHole == board.size()Z) {
+      if (hand == 1 && currHole == board.size()) {
+        currHole = destHole;;
+        nextHole = currHole + 1;
+        board.set(destHole, board.get(destHole)+1);
+        hand -= 1;
         System.out.println("Move complete!");
         return board;
       }
+
       board.set(currHole, board.get(currHole)+1);
       hand -= 1;
       currHole++; 	
     }
     showBoard();
+    //System.out.println("Move complete");
     return board;
   }
 }

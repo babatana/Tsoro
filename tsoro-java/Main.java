@@ -8,13 +8,9 @@ public class Main{
     Tsoro game = new Tsoro(init_board);
     game.showBoard();
     game.makeMove(4);
-    game.showBoard();
     game.makeMove(5);
-    game.showBoard();
     game.makeMove(6);
-    game.showBoard();
-    game.makeMove(6);
-    game.showBoard();
+    game.makeMove(7);
   }
 }
 
