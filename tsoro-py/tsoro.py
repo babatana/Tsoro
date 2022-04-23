@@ -1,6 +1,15 @@
-### Python Tsoro Game Tree
-### Includes DFS, BFS and Djikstra Algorithms 
-### Written by Tanaka Khondowe
+###### Python Tsoro Game Tree ######
+###### Includes DFS, BFS and Djikstra Algorithms ######  
+###### Written by Tanaka Khondowe ######
+
+###### the graph structure ######
+'''
+Each node is a play where the branches represents all holes except the destination hole.
+
+
+'''
+
+import pygraphviz
 import random as rand
 
 class Tsoro:
@@ -20,6 +29,9 @@ class Tsoro:
             occupied_holes+=1
         return self.board
 
+    def print_graph(self):
+        pass
+
     def choose_hand(self) -> int:
         #random strategy
         self.curr_hole = rand.randrange(1, self.board_size-1)
@@ -31,7 +43,7 @@ class Tsoro:
 
     def loop_back(self):
         if (self.curr_hole == self.board_size):
-            self.curr_hole = 0
+            self.curr_hole = self.dest_hole
     
     def play_hand(self):
         while (self.hand > 0):
@@ -41,12 +53,12 @@ class Tsoro:
             self.hand-=1
 
     def carry_over(self):
-        if (self.board[self.curr_hole] > 1 & self.curr_hole != 0):
+        if (self.board[self.curr_hole] > 1 & self.curr_hole != self.dest_hole):
             self.hand = self.board[self.curr_hole]
             print("Playing again...")
             print("New hand", self.hand)
             print("Current hole", self.curr_hole)
-            self.board[self.curr_hole] = 0  # pick up stones from current hole
+            self.board[self.curr_hole] = 0 
             self.play_hand()
             print("Current hole", self.curr_hole)
     
@@ -68,3 +80,4 @@ board = tsoro.init_board()
 print(len(board))
 while (board[0] < len(board)):
     print(tsoro.play_round())
+
