@@ -11,7 +11,7 @@ class Tsoro:
         self.curr_hole = 0
         self.dest_hole = 0
         self.hand = 0
-        self.start = False
+        self.count = 0
 
     def init_board(self) -> list:
         occupied_holes = int(self.board_size/2)
@@ -25,20 +25,13 @@ class Tsoro:
         self.curr_hole = rand.randrange(1, self.board_size-1)
         if (self.board[self.curr_hole] == 0):
             while (self.board[self.curr_hole] == 0):
-                self.curr_hole = rand.randrange(1, self.board_size-1)
+                self.curr_hole = rand.randrange(1, self.board_size)
         self.hand = self.board[self.curr_hole]
         return self.hand
 
     def loop_back(self):
         if (self.curr_hole == self.board_size):
             self.curr_hole = 0
-
-    def carry_on(self):
-        # If last stone was placed in occupied hole, keep playing
-        if (self.board[self.curr_hole] > 1):
-            self.hand = self.board[self.curr_hole]
-            #self.play_round()
-        return self.board
     
     def play_hand(self):
         while (self.hand > 0):
@@ -47,26 +40,27 @@ class Tsoro:
             self.board[self.curr_hole] += 1
             self.hand-=1
 
-    def play_round(self):
-        #while (self.board[0] < self.board_size):
-        self.hand = self.choose_hand()
-        print("Current hole", self.curr_hole)
-        print("Hand = ", self.hand)
-        self.board[self.curr_hole] = 0  # pick up stones from current hole
-        # clockwise rotation
-        while (self.hand > 0):
-            self.play_hand()
-        print("Current hole", self.curr_hole)
-        # carry on if curr_hole
-        if (self.board[self.curr_hole] > 1):
+    def carry_over(self):
+        if (self.board[self.curr_hole] > 1 & self.curr_hole != 0):
             self.hand = self.board[self.curr_hole]
             print("Playing again...")
             print("New hand", self.hand)
             print("Current hole", self.curr_hole)
             self.board[self.curr_hole] = 0  # pick up stones from current hole
-            # clockwise rotation
             self.play_hand()
             print("Current hole", self.curr_hole)
+    
+    def play_round(self):
+        print("ROUND: ", self.count)
+        self.count+=1
+        self.hand = self.choose_hand()
+        print("Current hole", self.curr_hole)
+        print("Hand = ", self.hand)
+        self.board[self.curr_hole] = 0
+        while (self.hand > 0):
+            self.play_hand()
+        print("Current hole", self.curr_hole)
+        self.carry_over()
         return self.board
 
 tsoro = Tsoro(8, 2)
