@@ -1,5 +1,4 @@
-### Python Tsoro Game Tree
-### Includes DFS, BFS and Djikstra Algorithms 
+### Tsoro game of strategy
 ### Written by Tanaka Khondowe
 import random as rand
 
