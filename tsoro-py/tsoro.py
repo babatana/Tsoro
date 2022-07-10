@@ -1,5 +1,6 @@
 ### Tsoro game of strategy
 ### Written by Tanaka Khondowe
+### Link to python tree-plots: https://plotly.com/python/tree-plots/
 import random as rand
 
 class Tsoro:
@@ -20,7 +21,7 @@ class Tsoro:
         return self.board
 
     def choose_hand(self) -> int:
-        #random strategy
+        # Random strategy
         self.curr_hole = rand.randrange(1, self.board_size-1)
         if (self.board[self.curr_hole] == 0):
             while (self.board[self.curr_hole] == 0):
@@ -62,7 +63,7 @@ class Tsoro:
         self.carry_over()
         return self.board
 
-tsoro = Tsoro(8, 2)
+tsoro = Tsoro(8, 8)
 board = tsoro.init_board()
 print(len(board))
 while (board[0] < len(board)):
